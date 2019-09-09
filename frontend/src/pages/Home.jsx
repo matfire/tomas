@@ -1,52 +1,84 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios"
 import {connect} from 'react-redux'
-import { MDBContainer, MDBNavbar, MDBCol, MDBCollapse, MDBNavbarToggler, MDBNavbarNav, MDBRow, MDBCard, MDBCardBody } from 'mdbreact'
+import { MDBContainer, MDBNavbar, MDBCol, MDBCollapse, MDBNavbarToggler, MDBNavbarNav, MDBRow, MDBCard, MDBCardBody, MDBIcon } from 'mdbreact'
 
 const Home = ({lat, lon, calendar}) => {
 
     return (
         <MDBContainer fluid>
-            <MDBRow>
+            <MDBRow className="mb-5 pb-5">
                 <MDBCol md="4">
                     <MDBCard>
                         <MDBCardBody>
-                            sssss
+                            <MDBRow center>
+                                <MDBCol md="4">
+                                    <MDBIcon icon="phone" size="10x" />
+                                    <h2 className="text-center">Appels</h2>
+                                </MDBCol>
+                            </MDBRow>
                         </MDBCardBody>
                     </MDBCard>
                 </MDBCol>
                 <MDBCol md="4">
                     <MDBCard>
                         <MDBCardBody>
-                            sssss
+                            <MDBRow center>
+                                <MDBCol md="4">
+                                    <MDBIcon far icon="images" size="10x"/>
+                                    <h2 className="text-center">Galerie photo</h2>
+                                </MDBCol>
+                            </MDBRow>
                         </MDBCardBody>
                     </MDBCard>
                 </MDBCol>
                 <MDBCol md="4">
                     <MDBCard>
                         <MDBCardBody>
-                            sssss
+                            <MDBRow center>
+                                <MDBCol md="4">
+                                    <MDBIcon far icon="calendar-alt" size="10x"/>
+                                    <h2 className="text-center">Agenda</h2>
+                                </MDBCol>
+                            </MDBRow>
+                        </MDBCardBody>
+                    </MDBCard>
+                </MDBCol>
+                </MDBRow>
+                <MDBRow className="mt-5 pt-5">
+                <MDBCol md="4">
+                    <MDBCard>
+                        <MDBCardBody>
+                            <MDBRow center>
+                                <MDBCol md="4">
+                                    <MDBIcon icon="at" size="10x"/>
+                                    <h2 className="text-center">Méls</h2>
+                                </MDBCol>
+                            </MDBRow>                        
                         </MDBCardBody>
                     </MDBCard>
                 </MDBCol>
                 <MDBCol md="4">
                     <MDBCard>
                         <MDBCardBody>
-                            sssss
+                            <MDBRow center>
+                                <MDBCol md="4">
+                                    <MDBIcon icon="tv" size="10x"/>
+                                    <h2 className="text-center">Télécomande TV</h2>
+                                </MDBCol>
+                            </MDBRow>
                         </MDBCardBody>
                     </MDBCard>
                 </MDBCol>
                 <MDBCol md="4">
                     <MDBCard>
                         <MDBCardBody>
-                            sssss
-                        </MDBCardBody>
-                    </MDBCard>
-                </MDBCol>
-                <MDBCol md="4">
-                    <MDBCard>
-                        <MDBCardBody>
-                            sssss
+                            <MDBRow center>
+                                <MDBCol md="4">
+                                    <MDBIcon icon="cog" size="10x"/>
+                                    <h2 className="text-center">Réglages</h2>
+                                </MDBCol>
+                            </MDBRow>
                         </MDBCardBody>
                     </MDBCard>
                 </MDBCol>

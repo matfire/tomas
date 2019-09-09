@@ -3,7 +3,7 @@ import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody, t
 import actions from '../store/actions';
 import {connect} from 'react-redux'
 
-const Login = ({history, client, setAuthenticated}) => {
+const Login = ({history, client, setAuthenticated, setUser}) => {
     let [email, setEmail] = useState("")
     let [password, setPassword] = useState("")
     return(
@@ -20,8 +20,9 @@ const Login = ({history, client, setAuthenticated}) => {
                                     strategy:"local",
                                     email,
                                     password
-                                }).then(() => {
+                                }).then(({user}) => {
                                     setAuthenticated(true)
+                                    setUser(user)
                                     history.push("/")
                                 }).catch(() => {
                                     toast.error("Connection failed: check credentials")
@@ -45,7 +46,8 @@ const mapStateToProps = state => (
 
 const mapDispatchToProps = dispatch => (
     {
-        setAuthenticated: value => dispatch(actions.setAuth(value))
+        setAuthenticated: value => dispatch(actions.setAuth(value)),
+        setUser: user => dispatch(actions.setUser(user))
     }
 )
 

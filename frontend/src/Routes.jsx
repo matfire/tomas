@@ -12,6 +12,7 @@ const Routes = ({authenticated}) => {
         return (
             <Switch>
                 <Route path="/" exact component={Home} />
+                <Redirect to="/" />
             </Switch>
         )
     }
@@ -19,6 +20,7 @@ const Routes = ({authenticated}) => {
         <Switch>
             <Route path="/login" exact component={Login} />
             <Route path="/register" exact component={Register} />
+            <Redirect to="/login" />
         </Switch>
     )
 }
