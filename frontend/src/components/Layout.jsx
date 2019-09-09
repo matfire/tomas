@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { MDBContainer, ToastContainer, MDBIcon, MDBModal, MDBModalHeader, MDBModalBody, MDBModalFooter, MDBBtn, MDBRow } from 'mdbreact'
+import { MDBContainer, ToastContainer, MDBIcon, MDBModal, MDBModalHeader, MDBModalBody, MDBModalFooter, MDBBtn, MDBRow, MDBNavItem } from 'mdbreact'
 import { MDBNavbar, MDBCol, MDBCollapse, MDBNavbarToggler, MDBNavbarNav } from 'mdbreact'
 import actions from '../store/actions';
 import {connect} from 'react-redux'
 import axios from "axios"
 import QRNode from 'qrcode.react'
-import { userInfo } from 'os';
+import {withRouter} from 'react-router-dom'
+import SpeechRecognition from 'react-speech-recognition'
 
 
 
-const Layout = ({children, client, setAuth, setCoords, lat, lon, authenticated, user, setUser}) => {
+const Layout = ({children, client, setAuth, setCoords, lat, lon, authenticated, user, setUser, finalTranscript, startListening, stopListening, listening, recognition}) => {
     const getPosition = (pos) => {
         setCoords({lat: pos.coords.latitude, lon: pos.coords.longitude})
     }
@@ -21,6 +22,7 @@ const Layout = ({children, client, setAuth, setCoords, lat, lon, authenticated, 
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(getPosition)
         }
+        recognition.lang = "fr-FR"
         client.reAuthenticate().then(({user}) => {setUser(user); setAuth(true)})
     }, [])
     useEffect(() => {
@@ -38,7 +40,18 @@ const Layout = ({children, client, setAuth, setCoords, lat, lon, authenticated, 
                         {temp.deg}   {/* <img src={`http://openweathermap.org/img/wn/${temp.icon}.png`} className="img-fluid" /> */}
                         </MDBNavbarNav>
                         <MDBNavbarNav right>
-                            <MDBIcon icon="qrcode" onClick={() => setModal(!modal)}/>
+                            <MDBNavItem>
+                                <MDBIcon icon="qrcode" onClick={() => setModal(!modal)}/>
+                            </MDBNavItem>
+                            <MDBNavItem className="pl-2">
+                                <MDBIcon icon="microphone" onClick={() => {
+                                    if (listening) {
+                                        stopListening()
+                                    } else {
+                                        startListening()
+                                    }
+                                }}/>
+                            </MDBNavItem>
                         </MDBNavbarNav>
                     </MDBCollapse>
                 </MDBNavbar>
@@ -62,6 +75,9 @@ const Layout = ({children, client, setAuth, setCoords, lat, lon, authenticated, 
                 newestOnTop={true}
                 autoClose={5000}/>
                 {children}
+                <MDBContainer>
+                                {finalTranscript}
+                </MDBContainer>
             </MDBContainer>
         </MDBContainer>
     )
@@ -83,4 +99,4 @@ const mapDispatchToProps = dispatch => (
     }
 )
 
-export default connect(mapStateToProps, mapDispatchToProps)(Layout)
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SpeechRecognition({autoStart:false, continuous:false})(Layout)))
