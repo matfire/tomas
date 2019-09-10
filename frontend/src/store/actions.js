@@ -19,4 +19,18 @@ const setUser = payload => (
     }
 )
 
-export default {setAuth, setCoords, setUser}
+const setMessages = payload => (
+    {
+        type:"SET_MESSAGES",
+        payload
+    }
+)
+
+const setSender = payload => (
+    {
+        type:"SET_SENDER",
+        payload
+    }
+)
+
+export default {setAuth, setCoords, setUser, setMessages, setSender}

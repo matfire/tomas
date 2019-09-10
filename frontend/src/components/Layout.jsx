@@ -67,7 +67,9 @@ const Layout = ({children, client, setAuth, setCoords, lat, lon, authenticated, 
                     <MDBNavbarToggler onClick={() => setCollapse(!collapse)} />
                     <MDBCollapse isOpen={collapse} navbar>
                         <MDBNavbarNav left>
-                        <h2>{temp.deg}</h2>   <img src={`http://openweathermap.org/img/wn/${temp.icon}.png`} className="img-fluid" />
+                        <MDBIcon size="2x" icon="arrow-left" onClick={() => {
+                            history.goBack()
+                        }} /> <h2 className="align-self-center">{temp.deg}</h2>   <img src={`http://openweathermap.org/img/wn/${temp.icon}.png`} className="img-fluid" />
                         </MDBNavbarNav>
                         <MDBNavbarNav right>
                             <MDBNavItem>
@@ -104,7 +106,7 @@ const Layout = ({children, client, setAuth, setCoords, lat, lon, authenticated, 
                 hideProgressBar={true}
                 newestOnTop={true}
                 autoClose={5000}/>
-                {children}
+                <main>{children}</main>
                 <MDBContainer>
                                 {finalTranscript}
                 </MDBContainer>

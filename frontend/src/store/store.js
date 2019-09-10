@@ -6,7 +6,9 @@ let baseStore = {
     client: app,
     lat:"",
     lon:"",
-    user:{}
+    user:{},
+    messages: {},
+    selectedSender: ""
 }
 
 const baseReducer = (state = baseStore, action) => {
@@ -21,6 +23,12 @@ const baseReducer = (state = baseStore, action) => {
                 return newState
         case "SET_USER":
                 newState.user = action.payload
+                return newState
+        case "SET_MESSAGES":
+                newState.messages = action.payload
+                return newState
+        case "SET_SENDER":
+                newState.selectedSender = action.payload
                 return newState
         default:
             return newState

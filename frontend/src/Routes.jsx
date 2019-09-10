@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
+import Contacts from './pages/Contacts'
 
 
 
@@ -12,6 +13,7 @@ const Routes = ({authenticated}) => {
         return (
             <Switch>
                 <Route path="/" exact component={Home} />
+                <Route path="/contacts" exact component={Contacts} />
                 <Redirect to="/" />
             </Switch>
         )
