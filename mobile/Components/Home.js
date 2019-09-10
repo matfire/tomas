@@ -18,6 +18,19 @@ export default class Home extends Component {
             title='QRCode' 
             onPress={() => navigate('QRScan')}
           />
+
+          <Text style={{
+            borderBottomColor: 'black',
+            borderBottomWidth: StyleSheet.hairlineWidth,
+            width: StyleSheet.width * 0.25,
+          }}></Text>
+
+          <Text style={{ fontSize: 22, textAlign: 'center'}}>Ici le menu Home</Text>
+          
+          <Button 
+            title='QRCode' 
+            onPress={() => navigate('QRScan')}
+          />
         </View>
       );
     }
