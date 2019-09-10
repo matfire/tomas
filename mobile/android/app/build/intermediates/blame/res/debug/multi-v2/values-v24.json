@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/adannion/moonshot/test/tomas/mobile/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v24/values-v24.xml",
+            "map": [
+                {
+                    "source": "/home/adannion/.gradle/caches/transforms-2/files-2.1/923316c4989d61a3dcf7278370353de7/res/values-v24/values-v24.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,212",
+                        "endColumns": "156,134",
+                        "endOffsets": "207,342"
+                    }
+                }
+            ]
+        }
+    ]
+}
