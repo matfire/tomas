@@ -10,7 +10,7 @@ import SpeechRecognition from 'react-speech-recognition'
 
 
 
-const Layout = ({children, client, setAuth, setCoords, lat, lon, authenticated, user, setUser, finalTranscript, startListening, stopListening, listening, recognition}) => {
+const Layout = ({children, client, setAuth, setCoords, lat, lon, authenticated, user, setUser, finalTranscript, transcript, resetTranscript, startListening, stopListening, listening, recognition, history}) => {
     const getPosition = (pos) => {
         setCoords({lat: pos.coords.latitude, lon: pos.coords.longitude})
     }
@@ -18,6 +18,7 @@ const Layout = ({children, client, setAuth, setCoords, lat, lon, authenticated, 
     const [collapse, setCollapse] = useState(false)
     const [modal, setModal] = useState(false)
 
+    // check authentication and get geolocation
     useEffect(() => {
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(getPosition)
@@ -25,11 +26,40 @@ const Layout = ({children, client, setAuth, setCoords, lat, lon, authenticated, 
         recognition.lang = "fr-FR"
         client.reAuthenticate().then(({user}) => {setUser(user); setAuth(true)})
     }, [])
+    // get weather data
     useEffect(() => {
         axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=9d9ab4467244bce9a0a31fcbeb8ecb4c`).then((res) => {
             setTemp({deg:((res.data.main.temp - 32) * 5/9).toFixed(2), icon:res.data.weather[0].icon})
         })
     }, [lat, lon])
+
+    // handle actions using final transcript
+    useEffect(() => {
+        if (finalTranscript !== "") {
+            console.log(finalTranscript)
+            if (finalTranscript.includes("appelle")) {
+                history.push("/appelle")
+            }
+        }
+    }, [])
+
+    // set listener for speech recognition
+    useEffect(() => {
+        const handleEsc = (event) => {
+            if (event.keyCode === 32) {
+                resetTranscript()
+                if (listening) {
+                    stopListening()
+                } else {
+                    startListening()
+                }
+           }
+         };
+         window.addEventListener("keydown", handleEsc);
+         return (() => {
+             window.removeEventListener("keydown", handleEsc)
+         })
+    }, [])
     return(
         <MDBContainer fluid>
             {authenticated && <header>
@@ -37,7 +67,7 @@ const Layout = ({children, client, setAuth, setCoords, lat, lon, authenticated, 
                     <MDBNavbarToggler onClick={() => setCollapse(!collapse)} />
                     <MDBCollapse isOpen={collapse} navbar>
                         <MDBNavbarNav left>
-                        {temp.deg}   {/* <img src={`http://openweathermap.org/img/wn/${temp.icon}.png`} className="img-fluid" /> */}
+                        <h2>{temp.deg}</h2>   <img src={`http://openweathermap.org/img/wn/${temp.icon}.png`} className="img-fluid" />
                         </MDBNavbarNav>
                         <MDBNavbarNav right>
                             <MDBNavItem>
