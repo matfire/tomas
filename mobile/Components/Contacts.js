@@ -16,13 +16,19 @@ import io from 'socket.io-client';
 import feathers from '@feathersjs/feathers'
 import socketio from '@feathersjs/socketio-client'
 
-const host = 'http://localhost:3030';
-const client = feathers();
+//const client = feathers();
 
-client.configure(socketio(host));
-client.authentication
+//client.configure(socketio(host));
+//client.authentication
 
-export default class App extends Component<{}> {
+export default class Contactes extends Component {
+
+  constructor() {
+
+    super();
+
+  }
+
   render() {
     return (
       <ScrollView contentContainerStyle={styles.stage}>
