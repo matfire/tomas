@@ -15,6 +15,7 @@ import { Cell, Section, TableView } from 'react-native-tableview-simple';
 import io from 'socket.io-client';
 import feathers from '@feathersjs/feathers'
 import socketio from '@feathersjs/socketio-client'
+import {createStackNavigator, createAppContainer} from 'react-navigation';
 
 //const client = feathers();
 
@@ -30,6 +31,7 @@ export default class Contactes extends Component {
   }
 
   render() {
+     const {navigate} = this.props.navigation;
     return (
       <ScrollView contentContainerStyle={styles.stage}>
           <View
@@ -48,10 +50,9 @@ export default class Contactes extends Component {
           <Section>
             <Cell
               cellStyle="Subtitle"
+              onPress={() => navigate('Message')}
               cellContentView={
-                <Text style={{ flex: 1, fontSize: 40 }}> Petit fils {"\n"}
-                <Text style={{ flex: 1, fontSize: 20 }}>  09238749
-                </Text>
+                <Text style={{ flex: 1, fontSize: 20 }}> Petit fils {"\n"}
                 </Text>
               }
             />
