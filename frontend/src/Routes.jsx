@@ -6,6 +6,7 @@ import Register from './pages/Register'
 import Home from './pages/Home'
 import Contacts from './pages/Contacts'
 import Video from './pages/Video'
+import Gallery from './pages/Gallery'
 
 
 
@@ -16,6 +17,7 @@ const Routes = ({authenticated}) => {
                 <Route path="/" exact component={Home} />
                 <Route path="/contacts" exact component={Contacts} />
                 <Route path="/conf/:hash" component={Video} />
+                <Route path="/gallery" component={Gallery} />
                 <Redirect to="/" />
             </Switch>
         )

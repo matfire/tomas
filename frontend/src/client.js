@@ -33,6 +33,13 @@ app.service("users").on("updated", async(updatedUser, context) => {
     }
 })
 
+app.service("images").on("created", image => {
+    let state = store.getState()
+    let images = state.images
+    images.push(image)
+    store.dispatch(actions.setImages(images))
+})
+
 
 
 export default app

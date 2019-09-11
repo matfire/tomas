@@ -8,19 +8,19 @@ const Home = ({lat, lon, calendar, history}) => {
     return (
         <MDBContainer fluid>
             <MDBRow className="mb-5 pb-5 align-items-stretch d-flex">
-                <MDBCol md="4">
+                <MDBCol md="4" onClick={() => history.push("/contacts")}>
                     <MDBCard>
                         <MDBCardBody>
                             <MDBRow center>
                                 <MDBCol md="4">
-                                    <MDBIcon icon="phone" size="10x" onClick={() => history.push("/contacts")}/>
+                                    <MDBIcon icon="phone" size="10x" />
                                     <h2 className="text-center">Appels</h2>
                                 </MDBCol>
                             </MDBRow>
                         </MDBCardBody>
                     </MDBCard>
                 </MDBCol>
-                <MDBCol md="4">
+                <MDBCol md="4" onClick={() => history.push("/gallery")}>
                     <MDBCard>
                         <MDBCardBody>
                             <MDBRow center>

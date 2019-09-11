@@ -33,4 +33,11 @@ const setSender = payload => (
     }
 )
 
-export default {setAuth, setCoords, setUser, setMessages, setSender}
+const setImages = payload => (
+    {
+        type:"SET_IMAGES",
+        payload
+    }
+)
+
+export default {setAuth, setCoords, setUser, setMessages, setSender, setImages}

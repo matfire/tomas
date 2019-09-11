@@ -1,14 +1,17 @@
 import {createStore} from 'redux'
 import app from '../client'
+import firebase from '../firebase'
 
 let baseStore = {
     authenticated:false,
     client: app,
+    firebase:firebase,
     lat:"",
     lon:"",
     user:{},
     messages: {},
-    selectedSender: ""
+    selectedSender: "",
+    images: []
 }
 
 const baseReducer = (state = baseStore, action) => {
@@ -29,6 +32,9 @@ const baseReducer = (state = baseStore, action) => {
                 return newState
         case "SET_SENDER":
                 newState.selectedSender = action.payload
+                return newState
+        case "SET_IMAGES":
+                newState.images = action.payload
                 return newState
         default:
             return newState
