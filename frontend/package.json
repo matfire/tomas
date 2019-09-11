@@ -14,13 +14,15 @@
     "react-scripts": "3.1.1",
     "react-speech-recognition": "^2.0.4",
     "redux": "^4.0.4",
+    "scaledrone-node": "^1.5.0",
     "socket.io-client": "^2.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "now-build": "yarn build"
   },
   "eslintConfig": {
     "extends": "react-app"

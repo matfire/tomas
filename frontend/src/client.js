@@ -4,7 +4,7 @@ import store from './store/store'
 import actions from './store/actions';
 
 // Socket.io is exposed as the `io` global.
-const socket = io('http://localhost:3030');
+const socket = io('https://api.tomas-seniors.media/');
 // @feathersjs/client is exposed as the `feathers` global.
 const app = feathers();
 
