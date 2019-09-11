@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import {connect} from 'react-redux'
-import { MDBRow, MDBCol, MDBListGroup, MDBListGroupItem, MDBCard, MDBCardBody } from 'mdbreact'
+import { MDBRow, MDBCol, MDBListGroup, MDBListGroupItem, MDBCard, MDBCardBody, MDBIcon, MDBBtn } from 'mdbreact'
 import actions from '../store/actions'
 
 
@@ -20,7 +20,7 @@ const ChatMessage = ({right, message}) => {
     )
 }
 
-const Contacts = ({user, selectedSender, messages, setSender, client, setMessages}) => {
+const Contacts = ({user, selectedSender, messages, setSender, client, setMessages, history}) => {
     useEffect(() => {
         if (selectedSender) {
             if (!messages[selectedSender]) {
@@ -44,14 +44,31 @@ const Contacts = ({user, selectedSender, messages, setSender, client, setMessage
             <MDBCol md="4">
                 <MDBListGroup>
                     {user.contacts.map((contact) => (
-                        <MDBListGroupItem key={contact._id} active={selectedSender === contact._id} onClick={() => setSender(contact._id)}>{contact.email}</MDBListGroupItem>
+                        <MDBListGroupItem key={contact._id} active={selectedSender === contact._id} onClick={() => setSender(contact._id)}>
+                            <MDBRow>
+                                <MDBCol md="8">
+                                    <h3>{contact.email}</h3>
+                                </MDBCol>
+                                <MDBCol md="2">
+                                   <MDBBtn gradient="aqua" onClick={() => history.push("/conf/dc3ed1")}><MDBIcon icon="video" size="2x"/></MDBBtn>
+                                </MDBCol>
+                                <MDBCol md="2">
+                                   <MDBBtn gradient="aqua" onClick={() => history.push("/call/" + Math.floor(Math.random() * 0xFFFFFF).toString(16))}><MDBIcon icon="phone" size="2x"/></MDBBtn>
+                                </MDBCol>
+                            </MDBRow> 
+                        </MDBListGroupItem>
                     ))}
                 </MDBListGroup>
             </MDBCol>
-            <MDBCol md="8" style={{height:"100%"}}>
+            <MDBCol md="8">
+                    <MDBCard>
+                        <MDBCardBody>
                         {selectedSender !== "" && messages[selectedSender] && messages[selectedSender].map((message) => (
                             <ChatMessage right={message.from === user._id} message={message} />
                         ))}
+                        </MDBCardBody>
+                    </MDBCard>
+
             </MDBCol>
         </MDBRow>
     )
