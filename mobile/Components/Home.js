@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Platform, Alert, Separator, TouchableOpacity, Linking, PermissionsAndroid, Button, Image } from 'react-native'
 
+import Logout from './Logout'
+
 export default class Home extends Component {
     
     constructor() {
@@ -79,6 +81,7 @@ export default class Home extends Component {
               flexDirection: 'row',
               justifyContent: 'space-between',
           }} /> */}
+            <Logout/>
         </View>
       );
     }
