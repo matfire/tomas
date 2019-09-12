@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { MDBRow, MDBCol } from 'mdbreact'
 import {connect} from 'react-redux'
 
@@ -85,13 +85,17 @@ const Video = ({match, location, user}) => {
               audio: true,
               video: true,
             }).then(stream => {
+              window.localStream = stream
               // Display your local video in #localVideo element
               localVideo.srcObject = stream;
               localVideo.play()
               // Add your stream to be sent to the conneting peer
               stream.getTracks().forEach(track => pc.addTrack(track, stream));
             }, onError);
-          
+            room.on("member_leave", () => {
+              remoteVideo.pause()
+              remoteVideo.srcObject = null
+            })
             // Listen to signaling data from Scaledrone
             room.on('data', (message, client) => {
               // Message was sent by us
@@ -122,7 +126,21 @@ const Video = ({match, location, user}) => {
               () => sendMessage({'sdp': pc.localDescription}),
               onError
             );
+
           }
+          return (() => {
+            pc.close()
+            room.unsubscribe();
+            drone.close();
+            localVideo.pause()
+            localVideo.srcObject = null
+            window.localStream.getTracks().forEach( (track) => {
+              track.stop();
+            });
+            window.localStream.getAudioTracks().forEach( track => {
+              track.stop()
+            })
+          })
 
     }, [])
     return (

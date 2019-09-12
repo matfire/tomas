@@ -9,7 +9,6 @@ import {withRouter} from 'react-router-dom'
 import SpeechRecognition from 'react-speech-recognition'
 
 
-
 const Layout = ({children, client, setAuth, setCoords, lat, lon, authenticated, user, setUser, finalTranscript, transcript, resetTranscript, startListening, stopListening, listening, recognition, history}) => {
     const getPosition = (pos) => {
         setCoords({lat: pos.coords.latitude, lon: pos.coords.longitude})
@@ -28,8 +27,9 @@ const Layout = ({children, client, setAuth, setCoords, lat, lon, authenticated, 
     }, [])
     // get weather data
     useEffect(() => {
-        axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=9d9ab4467244bce9a0a31fcbeb8ecb4c`).then((res) => {
-            setTemp({deg:((res.data.main.temp - 32) * 5/9).toFixed(2), icon:res.data.weather[0].icon})
+        if (lat && lon)
+            axios.get(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/9e70f243566de2be9cdfa371f3def47e/${lat},${lon}?lang=fr&units=si`).then((res) => {
+            setTemp({deg:((res.data.currently.temperature)), icon:res.data.currently.icon})
         })
     }, [lat, lon])
 
@@ -69,7 +69,7 @@ const Layout = ({children, client, setAuth, setCoords, lat, lon, authenticated, 
                         <MDBNavbarNav left>
                         <MDBIcon size="2x" icon="arrow-left" onClick={() => {
                             history.goBack()
-                        }} /> <h2 className="align-self-center">{temp.deg}</h2>   <img src={`http://openweathermap.org/img/wn/${temp.icon}.png`} className="img-fluid" />
+                        }} /> <h2 className="ml-2">{temp.deg}°</h2>
                         </MDBNavbarNav>
                         <MDBNavbarNav right>
                             <MDBNavItem>
