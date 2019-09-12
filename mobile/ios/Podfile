@@ -1,4 +1,4 @@
-platform :ios, '10.0'
+platform :ios, '12.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
 target 'mobile' do
@@ -27,6 +27,10 @@ target 'mobile' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
   pod 'react-native-webrtc', :path => '../node_modules/react-native-webrtc'
+pod 'Firebase'
+pod 'react-native-fetch-blob'
+
+  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
 
   target 'mobileTests' do
     inherit! :search_paths

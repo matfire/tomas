@@ -20,7 +20,7 @@ class Login extends Component {
       email: this.state.email,
       password: this.state.password,
     }).then((data) => {
-        AsyncStorage.setItem("user", data.user)
+        AsyncStorage.setItem("user", JSON.stringify(data.user))
         const action = { type: "LOGIN" }
         this.props.dispatch(action)
       }).catch(e => {
@@ -42,10 +42,12 @@ class Login extends Component {
       <View>
           <View style={styles.buttons}>
               <TextInput
+                style = {styles.textinput}
                   onChangeText={(text) => this.setState({email: text})}
                   placeholder="Adresse mail"
               />
               <TextInput
+                  style = {styles.textinput}
                   onChangeText={(text) => this.setState({password: text})}
                   placeholder="Mot de passe"
               />
@@ -63,12 +65,15 @@ class Login extends Component {
 const styles = StyleSheet.create({
   buttons: {
     justifyContent: 'space-around',
-    padding: 20
+    padding: 50,
   },
   button: {
     flex: 1,
-    padding:20,
+    padding:50,
     margin:20
+  },
+  textinput: {
+    padding: 50,
   },
 });
 

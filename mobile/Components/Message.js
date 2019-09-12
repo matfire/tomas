@@ -17,55 +17,39 @@ import feathers from '@feathersjs/feathers'
 import socketio from '@feathersjs/socketio-client'
 import {createStackNavigator, createAppContainer} from 'react-navigation';
 import { GiftedChat } from 'react-native-gifted-chat';
+import Firebase from '../Components/Firebase';
+import {connect} from 'react-redux'
 
-//const client = feathers();
+class Contactes extends Component {
 
-//client.configure(socketio(host));
-//client.authentication
 
-export default class Contactes extends Component {
-
-  constructor() {
-
-    super();
+  componentDidMount() {
 
   }
 
-  state = {
-    messages: [],
-  }
-
-  componentWillMount() {
-    this.setState({
-      messages: [
-        {
-          _id: 1,
-          text: 'Hello developer',
-          createdAt: new Date(),
-          user: {
-            _id: 2,
-            name: 'React Native',
-            avatar: 'https://placeimg.com/140/140/any',
-          },
-        },
-      ],
+  onSend(message, user) {
+    console.log(message)
+    this.props.firebase.firestore().collection("messages").add({
+      text:message[0].text,
+      name:user.email,
+      timestamp: new Date()
+    }).then(() => {
     })
-  }
-
-  onSend(messages = []) {
-    this.setState(previousState => ({
-      messages: GiftedChat.append(previousState.messages, messages),
-    }))
+    // this.setState(previousState => ({
+    //   messages: GiftedChat.append(previousState.messages, messages),
+    // }))
   }
 
   render() {
      const {navigate} = this.props.navigation;
+     let user = this.props.navigation.getParam("user", {})
+     console.log(user)
     return (
-      <GiftedChat
-        messages={this.state.messages}
-        onSend={messages => this.onSend(messages)}
+       <GiftedChat
+        messages={this.props.messages}
+        onSend={messages => this.onSend(messages, user)}
         user={{
-          _id: 1,
+          _id: user.email,
         }}
       />
     );
@@ -75,3 +59,11 @@ export default class Contactes extends Component {
 const styles = StyleSheet.create({
   head: { height: 40, backgroundColor: '#f1f8ff' },
 });
+
+const mapStateToProps = state => (
+{
+  messages: state.messages,
+  firebase: state.firebase
+})
+
+export default connect(mapStateToProps)(Contactes)
