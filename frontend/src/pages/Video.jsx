@@ -131,7 +131,7 @@ const Video = ({match, location, user}) => {
                 <video muted id="callerVideo" autoplay/>
             </MDBCol>
             <MDBCol md="6">
-                <video muted id="receiverVideo" autoPlay />
+                <video id="receiverVideo" autoPlay />
             </MDBCol>
         </MDBRow>
     )

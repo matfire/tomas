@@ -106,7 +106,7 @@ const Layout = ({children, client, setAuth, setCoords, lat, lon, authenticated, 
                 hideProgressBar={true}
                 newestOnTop={true}
                 autoClose={5000}/>
-                <main>{children}</main>
+                {children}
                 <MDBContainer>
                                 {finalTranscript}
                 </MDBContainer>

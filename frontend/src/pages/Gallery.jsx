@@ -19,10 +19,10 @@ const Gallery = ({client, images, setImages}) => {
 		}
 	}, [client, setImages, images])
 	return(
-		<MDBContainer>
+		<MDBContainer className="mt-5">
 			{ progress > 0 && <MDBProgress material preloader />}
+				<div className="mdb-lightbox fluid">
 			<MDBRow>
-				<div className="mdb-lightbox">
 				{images.map((image, index) => {
 					const privateKey = index
 					return (
@@ -36,6 +36,7 @@ const Gallery = ({client, images, setImages}) => {
 						</MDBCol>
 					)
 				})}
+			</MDBRow>
 				</div>
 				{isOpen && 
 					<Lightbox
@@ -48,10 +49,9 @@ const Gallery = ({client, images, setImages}) => {
 						onMoveNextRequest={() => setPhotoIndex((photoIndex + 1) % images.length)}
 					/>
 				}
-			</MDBRow>
 			<MDBRow center>
 					<MDBCol md="6">
-						<MDBFileInput textFieldTitle="ajouter une image" btnTitle="Ajouter une image" getValue={(e) => {
+						<MDBFileInput textFieldTitle="ajouter une image" btnTitle="Ajouter une image" accept="image/*" getValue={(e) => {
 							const id = shortid.generate()
 							var storageRef = firebase.storage().ref()
 							setProgress(1)
