@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { MDBRow, MDBCol } from 'mdbreact'
+import { MDBRow, MDBCol, MDBCard, MDBCardBody } from 'mdbreact'
 import {connect} from 'react-redux'
+import Plyr from 'plyr';
 
 const Video = ({match, location, user}) => {
     useEffect(() => {
@@ -78,6 +79,7 @@ const Video = ({match, location, user}) => {
               const stream = event.streams[0];
               if (!remoteVideo.srcObject || remoteVideo.srcObject.id !== stream.id) {
                 remoteVideo.srcObject = stream;
+                remoteVideo.scrollIntoView({behavior:"auto"})
               }
             };
           
@@ -96,6 +98,7 @@ const Video = ({match, location, user}) => {
               remoteVideo.pause()
               remoteVideo.srcObject = null
             })
+
             // Listen to signaling data from Scaledrone
             room.on('data', (message, client) => {
               // Message was sent by us
@@ -131,7 +134,6 @@ const Video = ({match, location, user}) => {
           return (() => {
             pc.close()
             room.unsubscribe();
-            drone.close();
             localVideo.pause()
             localVideo.srcObject = null
             window.localStream.getTracks().forEach( (track) => {
@@ -145,11 +147,19 @@ const Video = ({match, location, user}) => {
     }, [])
     return (
         <MDBRow>
-            <MDBCol md="6">
-                <video muted id="callerVideo" autoplay/>
+            <MDBCol md="6" xs="12" lg="12">
+                <MDBCard>
+                  <MDBCardBody>
+                    <video muted id="callerVideo" autoPlay/>
+                  </MDBCardBody>
+                </MDBCard>
             </MDBCol>
-            <MDBCol md="6">
-                <video id="receiverVideo" autoPlay />
+            <MDBCol md="6" xs="12" lg="12">
+              <MDBCard>
+                <MDBCardBody>
+                  <video id="receiverVideo" autoPlay/>
+                </MDBCardBody>
+              </MDBCard>
             </MDBCol>
         </MDBRow>
     )

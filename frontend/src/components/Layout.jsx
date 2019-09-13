@@ -29,7 +29,7 @@ const Layout = ({children, client, setAuth, setCoords, lat, lon, authenticated, 
     useEffect(() => {
         if (lat && lon)
             axios.get(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/9e70f243566de2be9cdfa371f3def47e/${lat},${lon}?lang=fr&units=si`).then((res) => {
-            setTemp({deg:((res.data.currently.temperature)), icon:res.data.currently.icon})
+            setTemp({deg:((res.data.currently.temperature)), icon:res.data.currently.summary})
         })
     }, [lat, lon])
 
@@ -69,7 +69,7 @@ const Layout = ({children, client, setAuth, setCoords, lat, lon, authenticated, 
                         <MDBNavbarNav left>
                         <MDBIcon size="2x" icon="arrow-left" onClick={() => {
                             history.goBack()
-                        }} /> <h2 className="ml-2">{temp.deg}°</h2>
+                        }} /> <h2 className="ml-2">{temp.deg}° - {temp.icon}</h2>
                         </MDBNavbarNav>
                         <MDBNavbarNav right>
                             <MDBNavItem>

@@ -9,7 +9,7 @@ let baseStore = {
     lat:"",
     lon:"",
     user:{},
-    messages: {},
+    messages: [],
     selectedSender: "",
     images: []
 }
@@ -28,6 +28,7 @@ const baseReducer = (state = baseStore, action) => {
                 newState.user = action.payload
                 return newState
         case "SET_MESSAGES":
+                console.log("updated images with ", action.payload)
                 newState.messages = action.payload
                 return newState
         case "SET_SENDER":

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import {connect} from 'react-redux'
 import { MDBRow, MDBCol, MDBListGroup, MDBListGroupItem, MDBCard, MDBCardBody, MDBIcon, MDBBtn } from 'mdbreact'
 import actions from '../store/actions'
+import Chat from '../components/Chat'
 
 
 const ChatMessage = ({right, message}) => {
@@ -21,51 +22,31 @@ const ChatMessage = ({right, message}) => {
 }
 
 const Contacts = ({user, selectedSender, messages, setSender, client, setMessages, history}) => {
-    useEffect(() => {
-        if (selectedSender) {
-            if (!messages[selectedSender]) {
-                client.service("messages").find({query: {
-                    to: {
-                        $in:[selectedSender, user._id]
-                    },
-                    from: {
-                        $in:[selectedSender, user._id]
-                    }
-                }}).then((res) => {
-                    let {data} = res
-                    let msgs = {...messages, selectedSender: data}
-                    setMessages(msgs)
-                })
-            }
-        }
-    }, [selectedSender])
     return (
         <MDBRow className="d-flex align-content-stretch wrap">
-            <MDBCol md="4">
+            <MDBCol md="4" sm="12">
                 <MDBListGroup>
                     {user.contacts.map((contact) => (
                         <MDBListGroupItem key={contact._id} active={selectedSender === contact._id} onClick={() => setSender(contact._id)}>
                             <MDBRow>
-                                <MDBCol md="8">
+                                <MDBCol md="8" sm="10" lg="10">
                                     <h3>{contact.email}</h3>
                                 </MDBCol>
-                                <MDBCol md="2">
-                                   <MDBBtn gradient="aqua" onClick={() => history.push("/conf/dc3ed1")}><MDBIcon icon="video" size="2x"/></MDBBtn>
-                                </MDBCol>
-                                <MDBCol md="2">
-                                   <MDBBtn gradient="aqua" onClick={() => history.push("/call/" + Math.floor(Math.random() * 0xFFFFFF).toString(16))}><MDBIcon icon="phone" size="2x"/></MDBBtn>
+                                <MDBCol md="4" sm="2" lg="10">
+                                   <MDBBtn gradient="young-passion" rounded onClick={() => history.push("/conf/dc3ed1")}> <MDBIcon icon="video" size="2x"  /></MDBBtn>
                                 </MDBCol>
                             </MDBRow> 
                         </MDBListGroupItem>
                     ))}
                 </MDBListGroup>
             </MDBCol>
-            <MDBCol md="8">
+            <MDBCol md="8" sm="12">
                     <MDBCard>
                         <MDBCardBody>
-                        {selectedSender !== "" && messages[selectedSender] && messages[selectedSender].map((message) => (
+                        {/* {selectedSender !== "" && messages[selectedSender] && messages[selectedSender].map((message) => (
                             <ChatMessage right={message.from === user._id} message={message} />
-                        ))}
+                        ))} */}
+                            <Chat />
                         </MDBCardBody>
                     </MDBCard>
 
