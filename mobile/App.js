@@ -7,12 +7,18 @@
  */
 
 import React from 'react'
-import Navigation from './Navigate/Navigate'
+
+import { Provider } from 'react-redux'
+import Store from './Store/ConfigStore'
+import MainApp from './Components/MainApp'
 
 export default class App extends React.Component {
+
   render() {
     return (
-      <Navigation/>
+      <Provider store={Store}>
+        <MainApp/>
+      </Provider>
     )
   }
 }
