@@ -52,7 +52,7 @@ export default class Home extends Component {
 
           <Text style={{ fontSize: 18}}>Photo</Text>
           
-          <TouchableOpacity style={styles.FacebookStyle} activeOpacity={0.5}>
+          <TouchableOpacity style={styles.FacebookStyle} activeOpacity={0.5} onPress={() => navigate('Camera')}>
             <Image
               source={require('../utils/photo.jpg')}
               style={styles.ImageIconStyle}

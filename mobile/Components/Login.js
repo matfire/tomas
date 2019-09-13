@@ -24,6 +24,7 @@ class Login extends Component {
         const action = { type: "LOGIN" }
         this.props.dispatch(action)
       }).catch(e => {
+        alert("Une erreur est survenue");
         console.log(e);
       });
   };

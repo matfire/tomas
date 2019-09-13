@@ -5,9 +5,9 @@ import Message from '../Components/Message';
 import Image from '../Components/Image';
 
 import {createAppContainer} from 'react-navigation';
-import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
+import {createStackNavigator} from 'react-navigation-stack';
 
-const MainNavigator = createMaterialTopTabNavigator({
+const MainNavigator = createStackNavigator({
     Home: {
         screen: Home,
         navigationOptions: {

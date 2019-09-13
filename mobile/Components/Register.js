@@ -16,9 +16,9 @@ export default class Register extends Component {
       elder: false,
     }).then(() => {
       this.setState({isLogged: true});
-      alert("Register ok");
+      alert("Le compte a bien été enregistré");
     }).catch(e => {
-      alert(e);
+      alert("Une erreur est survenue");
     }); 
   };
 

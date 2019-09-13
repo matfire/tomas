@@ -11,6 +11,7 @@ class Logout extends Component {
       const action = { type: "LOGOUT" }
       this.props.dispatch(action)
     }).catch(e => {
+      alert("Une erreur est survenue");
       console.log(e);
     });
   };
